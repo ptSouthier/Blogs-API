@@ -12,7 +12,7 @@ const create = async ({ displayName, email, password, image }) => {
   }
 
   await User.create({ displayName, email, password, image });
-  const token = jwt.sign({ displayName, email }, JWT_SECRET, { expiresIn: '12h' });
+  const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '12h' });
   return { status: StatusCodes.CREATED, token };
 };
 
