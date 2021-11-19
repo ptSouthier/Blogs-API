@@ -28,8 +28,16 @@ const getByID = async (req, res) => {
   res.status(status).json(user);
 };
 
+const remove = async (req, res) => {
+  const { email } = req.user;
+  const { status } = await User.remove(email);
+
+  res.status(status).send();
+};
+
 module.exports = {
   create,
   getAll,
   getByID,
+  remove,
 };

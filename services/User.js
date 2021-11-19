@@ -31,8 +31,14 @@ const getByID = async (id) => {
   return { status: StatusCodes.OK, user };
 };
 
+const remove = async (email) => {
+  await User.destroy({ where: { email } });
+  return { status: StatusCodes.NO_CONTENT };
+};
+
 module.exports = {
   create,
   getAll,
   getByID,
+  remove,
 };
