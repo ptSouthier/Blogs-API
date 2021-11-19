@@ -8,7 +8,7 @@ const authenticate = async (req, res) => {
     return res.status(status).json({ message });
   }
   
-  res.status(status).json(token);
+  res.status(status).json({ token });
 };
 
 module.exports = {

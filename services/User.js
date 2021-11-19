@@ -16,6 +16,23 @@ const create = async ({ displayName, email, password, image }) => {
   return { status: StatusCodes.CREATED, token };
 };
 
+const getAll = async () => {
+  const users = await User.findAll({});
+  return { status: StatusCodes.OK, users };
+};
+
+const getByID = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  
+  if (!user) {
+    return { status: StatusCodes.NOT_FOUND, message: 'User does not exist' };
+  }
+
+  return { status: StatusCodes.OK, user };
+};
+
 module.exports = {
   create,
+  getAll,
+  getByID,
 };
