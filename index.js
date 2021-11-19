@@ -1,10 +1,18 @@
 const express = require('express');
+const cors = require('cors');
+const UserRouter = require('./routes/User');
+
+const PORT = 3000;
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+app.listen(PORT, () => console.log(`Connected on port ${PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.use('/user', UserRouter);
