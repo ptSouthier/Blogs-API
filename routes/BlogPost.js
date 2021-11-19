@@ -9,4 +9,6 @@ router.get('/', validateJWT, BlogPost.getAll);
 
 router.get('/:id', validateJWT, BlogPost.getByID);
 
+router.put('/:id', validateJWT, BlogPost.update);
+
 module.exports = router;

@@ -32,8 +32,33 @@ const getByID = async (id) => {
   return { status: StatusCodes.OK, post };
 };
 
+const update = async ({ id, title, content, categoryIds, email }) => {
+  const post = await BlogPost.findOne({ where: { id }, include: [{ all: true }] });
+  const { dataValues } = post;
+  
+  if (categoryIds) {
+    return { status: StatusCodes.BAD_REQUEST, message: 'Categories cannot be edited' };
+  }
+
+  if (dataValues.user.email !== email) {
+    return { status: StatusCodes.UNAUTHORIZED, message: 'Unauthorized user' };
+  }
+
+  if (!title) {
+    return { status: StatusCodes.BAD_REQUEST, message: '"title" is required' };
+  }
+
+  if (!content) {
+    return { status: StatusCodes.BAD_REQUEST, message: '"content" is required' };
+  }
+
+  const newPost = await post.update({ title, content }, { where: { id } });
+  return { status: StatusCodes.OK, post: newPost };
+};
+
 module.exports = {
   create,
   getAll,
   getByID,
+  update,
 };
