@@ -16,6 +16,12 @@ const create = async ({ displayName, email, password, image }) => {
   return { status: StatusCodes.CREATED, token };
 };
 
+const getAll = async () => {
+  const users = await User.findAll({});
+  return { status: StatusCodes.OK, users };
+};
+
 module.exports = {
   create,
+  getAll,
 };
