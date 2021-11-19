@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const UserRouter = require('./routes/User');
 const LoginRouter = require('./routes/Login');
+const CategoriesRouter = require('./routes/Categories');
 
 const PORT = 3000;
 
@@ -18,3 +19,4 @@ app.get('/', (request, response) => {
 
 app.use('/user', UserRouter);
 app.use('/login', LoginRouter);
+app.use('/categories', CategoriesRouter);
