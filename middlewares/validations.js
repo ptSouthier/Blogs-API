@@ -1,7 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
 
-const EMPTY_ENTRY = 0;
-
 const isEmailValid = (email) => {
   const emailPattern = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
   return emailPattern.test(email);
@@ -22,14 +20,14 @@ const validateName = (req, res, next) => {
 
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
-  
-  if (email.length === EMPTY_ENTRY) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      message: '"email" is not allowed to be empty',
-    });
-  }
 
   if (!email) {
+    if (email === '') {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: '"email" is not allowed to be empty',
+      });
+    }
+
     return res.status(StatusCodes.BAD_REQUEST).json({
       message: '"email" is required',
     });
@@ -48,13 +46,13 @@ const validatePassword = (req, res, next) => {
   const { password } = req.body;
   const PASSWORD_LENGTH = 6;
 
-  if (password.length === EMPTY_ENTRY) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      message: '"password" is not allowed to be empty',
-    });
-  }
-
   if (!password) {
+    if (password === '') {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: '"password" is not allowed to be empty',
+      });
+    }
+
     return res.status(StatusCodes.BAD_REQUEST).json({
       message: '"password" is required',
     });
