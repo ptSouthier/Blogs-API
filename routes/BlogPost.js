@@ -5,4 +5,6 @@ const { validatePostEntries } = require('../middlewares/validations');
 
 router.post('/', validateJWT, validatePostEntries, BlogPost.create);
 
+router.get('/', validateJWT, BlogPost.getAll);
+
 module.exports = router;

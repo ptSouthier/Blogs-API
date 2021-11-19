@@ -12,6 +12,14 @@ const create = async ({ title, content, categoryIds, email }) => {
   return { status: StatusCodes.CREATED, post };
 };
 
+const getAll = async () => {
+  const posts = await BlogPost.findAll({ include: [{ all: true }] });
+  console.log(posts);
+
+  return { status: StatusCodes.OK, posts };
+};
+
 module.exports = {
   create,
+  getAll,
 };
