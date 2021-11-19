@@ -7,4 +7,6 @@ router.post('/', validateJWT, validatePostEntries, BlogPost.create);
 
 router.get('/', validateJWT, BlogPost.getAll);
 
+router.get('/:id', validateJWT, BlogPost.getByID);
+
 module.exports = router;
