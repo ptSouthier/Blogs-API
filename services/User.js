@@ -21,7 +21,18 @@ const getAll = async () => {
   return { status: StatusCodes.OK, users };
 };
 
+const getByID = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  
+  if (!user) {
+    return { status: StatusCodes.NOT_FOUND, message: 'User does not exist' };
+  }
+
+  return { status: StatusCodes.OK, user };
+};
+
 module.exports = {
   create,
   getAll,
+  getByID,
 };
