@@ -35,7 +35,7 @@ const getByID = async (id) => {
 const update = async ({ id, title, content, categoryIds, email }) => {
   const post = await BlogPost.findOne({ where: { id }, include: [{ all: true }] });
   const { dataValues } = post;
-  
+
   if (categoryIds) {
     return { status: StatusCodes.BAD_REQUEST, message: 'Categories cannot be edited' };
   }
@@ -56,9 +56,26 @@ const update = async ({ id, title, content, categoryIds, email }) => {
   return { status: StatusCodes.OK, post: newPost };
 };
 
+const remove = async (id, email) => {
+  const post = await BlogPost.findOne({ where: { id }, include: [{ all: true }] });
+
+  if (!post) {
+    return { status: StatusCodes.NOT_FOUND, message: 'Post does not exist' };
+  }
+  
+  const { dataValues } = post;
+  if (dataValues.user.email !== email) {
+    return { status: StatusCodes.UNAUTHORIZED, message: 'Unauthorized user' };
+  }
+
+  await post.destroy({ where: { id } });
+  return { status: StatusCodes.NO_CONTENT };
+};
+
 module.exports = {
   create,
   getAll,
   getByID,
   update,
+  remove,
 };
